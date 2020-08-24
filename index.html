@@ -11,8 +11,19 @@
             font-family: "Comic Sans MS"
         }
 
-        h1{
-            text-align: center;
+        h1 {
+            text-align: left;
+            left: calc(50% - 599px);
+            margin: 25px calc(50% - 599px);
+            font-size: 60px;
+        }
+
+        hr {
+            left: calc(50% - 599px);
+            margin: 25px 5px 25px calc(50% - 599px);
+            background-color: #99ebff;
+            border-style:hidden;
+            height: 2px;
         }
 
         table {
@@ -129,7 +140,9 @@
 </head>
 <body>
 
-    <h1>Le sudoku</h1>
+    <h1>SUDOKU</h1>
+
+    <hr id="line" />
 
     <div class="body">
        
@@ -351,10 +364,9 @@
 
         //Getting all the necessary html elements
         const newGame = document.getElementById('newGame')
-        const otherInputs = []
-        otherInputs.push(document.getElementById('notes'))
-        otherInputs.push(document.getElementById('cancel'))
-        otherInputs.push(document.getElementById('newGame'))
+        const notes = (document.getElementById('notes'))
+        const cancel = (document.getElementById('cancel'))
+        const erase = (document.getElementById('erase'))
 
 
 
@@ -655,7 +667,7 @@
             for (let i = 0; i < sudoku.length; i++) {
                 for (let j = 0; j < sudoku[i].length; j++) {
                     if (sudoku[i][j] === num) {
-                        colors[2].push(i * 9 + j)
+                        colors[3].push(i * 9 + j)
                     }
 
                 }
@@ -691,6 +703,7 @@
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
             complete = true
             for (let i = 1; i <= 9; i++) {
                 let save = sudoku[i - 1]
@@ -707,6 +720,8 @@
 
         }
 
+        const ans = JSON.parse(JSON.stringify(sudoku));
+        
 
 
         //The way i create the sudoku grid is by creating a complete sudoku grid and then removing random numbers one by one until i can't remove any more of them for the sudoku to be possible
@@ -752,8 +767,11 @@
                 if (sudoku[i][j]) {
                     sudokuRef[i * 9 + j].innerHTML = sudoku[i][j]
                     number.push(i * 9 + j)
-                //console.log(sudokuRef[i * 9 + j])
-                } else zero.push(i * 9 + j)
+                    //console.log(sudokuRef[i * 9 + j])
+                } else {
+                    sudokuRef[i * 9 + j].style.color = '#00b8e6'
+                    zero.push(i * 9 + j)
+                }
 
 
             }
@@ -762,11 +780,11 @@
         let clicked;
         let coords;
         let mouseon;
-        let colors = [[], [], [], []]
+        let colors = [[], [], [], [], []]
 
         //This variable defines the different colors used in the code
         //[0]: All the tiles affected by the selected one  [1]: Tile touched by the mouse  [2]: All tiles identical to the one selected  [3]: Clicked tile
-        const colorRef = ['#e6e6e6', '#e6faff', '#ccf5ff', '#99ebff']
+        const colorRef = ['#e6e6e6', '#e6faff', '#ff9999', '#ccf5ff', '#99ebff']
 
         //This loop handles all the events that every tile is affected by individually
         for (let i = 0; i < 81; i++) {
@@ -791,13 +809,13 @@
             //This changes the tile's color when clicked
             sudokuRef[i].addEventListener('click', e => {
                 if (clicked + 1) {
-                    colors[3].splice(colors.indexOf(clicked), 1)
+                   
                 }
                 //e.target.style.backgroundColor = '#99d6ff'
                 clicked = i
-                colors[3].push(i)
+                colors[4] = [i]
                 coords = [y, x, getSquare(y + 1, x + 1)]
-                colors[2] = [];
+                colors[3] = [];
                 if (number.includes(i)) {
                     colorNumbers(sudoku[y][x])
                 }
@@ -820,8 +838,8 @@
             }
         }
 
-        //This function handles all the color changes at every frame
-        const colorManagement = e => {
+        //This function handles all the color and tiles changes at every frame
+        const management = e => {
             //console.log(colors)
             for (let i = 0; i < sudoku.length; i++) {
                 for (let j = 0; j < sudoku[i].length; j++) {
@@ -834,14 +852,64 @@
                     sudokuRef[colors[i][j]].style.backgroundColor = colorRef[i]
                 }
             }
-            window.requestAnimationFrame(colorManagement)
+
+            for (let i = 0; i < sudoku.length; i++) {
+                for (let j = 0; j < sudoku[i].length; j++) {
+                    if (sudoku[i][j]) {
+                        sudokuRef[i * 9 + j].innerHTML = sudoku[i][j]
+                        //console.log(sudokuRef[i * 9 + j])
+                    } else {
+                        sudokuRef[i * 9 + j].innerHTML = sudoku[i][j] = ''
+                        
+                    }
+                    if (zero.includes(i * 9 + j) && sudoku[i][j]) {
+                        if (sudoku[i][j] === ans[i][j]) {
+                            //console.log(i, j)
+                            sudokuRef[i * 9 + j].style.color = '#00b8e6'
+                            
+                        } else {
+                            sudokuRef[i * 9 + j].style.color = '#ff1a1a'
+                            //colors[2].push(i * 9 + j)
+                            
+                            
+                        }
+                    }
+                    /*if (colors[2].includes(i * 9 + j)) {
+                        if ((sudoku[i][j] === ans[i][j] || sudoku[i][j] === 0)) {
+                            colors[2].splice(colors[2].indexOf(i * 9 + j), 1)
+                        }
+                        
+                    }*/
+                    
+
+
+                }
+            }
+
+            window.requestAnimationFrame(management)
         }
-        colorManagement();
+        management();
         console.log(inputs[0].style.backgroundColor.split(','))
 
-        /*for (let i = 0; i < inputs.length; i++) {
-
-        }*/
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].addEventListener('click', e => {
+                console.log(ans[0], ans[1], ans[2], ans[3], ans[4], ans[5], ans[6], ans[7], ans[8])
+                //console.log(i, clicked, zero.includes(clicked))
+                if (clicked + 1) {
+                    if (zero.includes(clicked)) {
+                        sudoku[(clicked - (clicked % 9)) / 9][clicked % 9] = i + 1
+                    }
+                }
+            })
+        }
+        erase.onclick = e => {
+            console.log('AAAA', clicked, zero.includes(clicked), (clicked - (clicked % 9)) / 9, clicked % 9)
+            if (clicked + 1) {
+                if (zero.includes(clicked)) {
+                    sudoku[(clicked - (clicked % 9)) / 9][clicked % 9] = 0;
+                }
+            }
+        }
 
 
 
