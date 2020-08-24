@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Vlad</title>
+    <style>
+
+
+        * {
+            font-family: "Comic Sans MS"
+        }
+
+        h1{
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            
+        }
+
+        #noCollapse {
+            border-collapse: separate;
+            margin-bottom: 9px;
+        }
+
+        .body{
+            margin: 0 auto;
+        }
+
+        .big {
+            
+            text-align: center;
+            margin: 0 auto;
+            padding: 0 0 0 0;
+        }
+
+        .main {
+            left: calc(50% - 599px);
+            position: absolute;
+            border: 3px solid #000000;
+            margin: 0 auto;
+            border-collapse: collapse;
+        }
+        .small {
+            border: 2px solid #000000;
+            border-collapse: collapse;
+            
+        }
+        .small td {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #000000;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .input {
+            right: calc(50% - 599px);
+            position: absolute;
+        }
+
+        #newGame {
+            border: 6px solid #99ebff;
+            background-color: #99ebff;
+            border-radius: 10px;
+            font-size: 25px;
+            width: 580px;
+            height: 60px;
+            text-align: center;
+            font-weight: bold;
+            color: #ffffff;
+            transition: all 0.15s linear;
+        }
+        #newGame:hover{
+            border-color: #b3f0ff;
+            background-color: #b3f0ff;
+            cursor: pointer;
+        }
+
+        .numInput {
+            width: 193px;
+            border: 3px solid #cccccc;
+            height: 118px;
+            font-size: 50px;
+            font-weight: bold;
+            text-align: center;
+            background-color: #ffffff;
+            transition: all 0.15s linear;
+            cursor: auto;
+
+        }
+
+        .numInput:hover{
+            background-color: #e6e6e6;
+            cursor: pointer;
+        }
+
+
+        .otherInput {
+            width: 193px;
+            border: 3px solid #cccccc;
+            height: 118px;
+            font-size: 30px;
+            text-align: center;
+            color: #99ebff;
+            background-color: #ffffff;
+            transition: all 0.15s linear;
+            cursor: auto;
+        }
+
+        .otherInput:hover {
+            color: #33d6ff;
+            background-color: #99ebff;
+            cursor: pointer;
+        }
+
+
+
+
+            
+
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <h1>Le sudoku</h1>
+
+    <div class="body">
+       
+        <table class="main">
+            <tr class="big">
+                <td class="big">
+                    <table class="small">
+                        <tr>
+                            <td id="1"></td>
+                            <td id="2"></td>
+                            <td id="3"></td>
+                        </tr>
+                        <tr>
+                            <td id="10"></td>
+                            <td id="11"></td>
+                            <td id="12"></td>
+                        </tr>
+                        <tr>
+                            <td id="19"></td>
+                            <td id="20"></td>
+                            <td id="21"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="big">
+                    <table class="small">
+                        <tr>
+                            <td id="4"></td>
+                            <td id="5"></td>
+                            <td id="6"></td>
+                        </tr>
+                        <tr>
+                            <td id="13"></td>
+                            <td id="14"></td>
+                            <td id="15"></td>
+                        </tr>
+                        <tr>
+                            <td id="22"></td>
+                            <td id="23"></td>
+                            <td id="24"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="big">
+                    <table class="small">
+                        <tr>
+                            <td id="7"></td>
+                            <td id="8"></td>
+                            <td id="9"></td>
+                        </tr>
+                        <tr>
+                            <td id="16"></td>
+                            <td id="17"></td>
+                            <td id="18"></td>
+                        </tr>
+                        <tr>
+                            <td id="25"></td>
+                            <td id="26"></td>
+                            <td id="27"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="big">
+                <td class="big">
+                    <table class="small">
+                        <tr>
+                            <td id="28"></td>
+                            <td id="29"></td>
+                            <td id="30"></td>
+                        </tr>
+                        <tr>
+                            <td id="37"></td>
+                            <td id="38"></td>
+                            <td id="39"></td>
+                        </tr>
+                        <tr>
+                            <td id="46"></td>
+                            <td id="47"></td>
+                            <td id="48"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="big">
+                    <table class="small">
+                        <tr>
+                            <td id="31"></td>
+                            <td id="32"></td>
+                            <td id="33"></td>
+                        </tr>
+                        <tr>
+                            <td id="40"></td>
+                            <td id="41"></td>
+                            <td id="42"></td>
+                        </tr>
+                        <tr>
+                            <td id="49"></td>
+                            <td id="50"></td>
+                            <td id="51"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="big">
+                    <table class="small">
+                        <tr>
+                            <td id="34"></td>
+                            <td id="35"></td>
+                            <td id="36"></td>
+                        </tr>
+                        <tr>
+                            <td id="43"></td>
+                            <td id="44"></td>
+                            <td id="45"></td>
+                        </tr>
+                        <tr>
+                            <td id="52"></td>
+                            <td id="53"></td>
+                            <td id="54"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="big">
+                <td class="big">
+                    <table class="small">
+                        <tr>
+                            <td id="55"></td>
+                            <td id="56"></td>
+                            <td id="57"></td>
+                        </tr>
+                        <tr>
+                            <td id="64"></td>
+                            <td id="65"></td>
+                            <td id="66"></td>
+                        </tr>
+                        <tr>
+                            <td id="73"></td>
+                            <td id="74"></td>
+                            <td id="75"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="big">
+                    <table class="small">
+                        <tr>
+                            <td id="58"></td>
+                            <td id="59"></td>
+                            <td id="60"></td>
+                        </tr>
+                        <tr>
+                            <td id="67"></td>
+                            <td id="68"></td>
+                            <td id="69"></td>
+                        </tr>
+                        <tr>
+                            <td id="76"></td>
+                            <td id="77"></td>
+                            <td id="78"></td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="big">
+                    <table class="small">
+                        <tr>
+                            <td id="61"></td>
+                            <td id="62"></td>
+                            <td id="63"></td>
+                        </tr>
+                        <tr>
+                            <td id="70"></td>
+                            <td id="71"></td>
+                            <td id="72"></td>
+                        </tr>
+                        <tr>
+                            <td id="79"></td>
+                            <td id="80"></td>
+                            <td id="81"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+       
+
+        <div class="input">
+
+            <table id="noCollapse">
+                <tr>
+                    <td id="newGame">New game</td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td class="numInput" id="n1">1</td>
+                    <td class="numInput" id="n2">2</td>
+                    <td class="numInput" id="n3">3</td>
+                </tr>
+                <tr>
+                    <td class="numInput" id="n4">4</td>
+                    <td class="numInput" id="n5">5</td>
+                    <td class="numInput" id="n6">6</td>
+                </tr>
+                <tr>
+                    <td class="numInput" id="n7">7</td>
+                    <td class="numInput" id="n8">8</td>
+                    <td class="numInput" id="n9">9</td>
+                </tr>
+                <tr>
+                    <td class="otherInput" id="notes">Notes</td>            
+                    <td class="otherInput" id="cancel">Cancel</td>
+                    <td class="otherInput" id="erase">Erase</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+
+    <script>
+
+        //Getting all the necessary html elements
+        const newGame = document.getElementById('newGame')
+        const otherInputs = []
+        otherInputs.push(document.getElementById('notes'))
+        otherInputs.push(document.getElementById('cancel'))
+        otherInputs.push(document.getElementById('newGame'))
+
+
+
+        //This code gets all the html elements that the numeric buttons on the right, and stores them in an array
+        let inputs = []
+        for (let i = 1; i <= 9; i++) {
+            inputs.push(document.getElementById('n' + String(i)))
+
+        }
+
+        //This code gets all the html elements that represent the tiles in the grid, and then puts them in the array sudokuRef
+        let sudokuRef = []
+        for (let i = 1; i <= 81; i++) {
+            sudokuRef.push(document.getElementById(String(i)))
+
+        }
+
+
+        //This function returns the 3x3 square of a certain tile, considering that the first 3x3 square in the upper left corner is 1 and the one in the lower right corner is 9
+        const getSquare = (y, x) => {
+            return Math.floor((y - 1) / 3) * 3 + Math.ceil((x) / 3)
+        }
+
+        //this function verifies that a certain square in the grid is possible according to the regular sudoku rules
+        const verify = (y, x) => {
+            const num = sudoku[y - 1][x - 1]
+            for (let i = 0; i < sudoku[y - 1].length; i++) {
+                //console.log(num, sudoku[y - 1][i])
+                //console.log(i)
+                if (sudoku[y - 1][i] === num && i !== x - 1) {
+                    return false;
+                }
+            }
+
+            for (let i = 0; i < sudoku.length; i++) {
+                
+                if (sudoku[i][x - 1] === num && i !== y - 1) {
+                    
+                    
+                    return false;
+                }
+            }
+
+            for (let i = 1; i <= sudoku.length; i++) {
+                for (let j = 1; j <= sudoku[i - 1].length; j++) {
+                    //console.log(getSquare(y, x), getSquare(i + 1, j + 1))
+                    if (getSquare(y, x) === getSquare(i, j) && num === sudoku[i - 1][j - 1] && i !== y && j !== x) {
+                        //console.log(num, y, x, i, j)
+                        return false;
+                    }
+
+
+                }
+            }
+
+
+            return true;
+        }
+
+        //This function returns an array with all its elements in a random order
+        const randArr = arr => {
+            let arr2 = []
+            while (arr.length > 0) {
+                //console.log(arr)
+                arr2.push(Number(arr.splice(Math.floor(Math.random() * arr.length), 1).join('')))
+            }
+            return arr2
+        }
+
+
+        //This function generates one full row of the grid while making sure that sudoku rules are being respected
+        const generateRow = (row, arr) => {
+            //console.log(row - 1, arr.length, original[row - 1][arr.length], 'BBBBBBBBBBBB', original[0], original[1], original[2], original[3], original[4], original[5], original[6], original[7], original[8])
+            //if (original[row - 1][arr.length] === 0) {
+                //console.log(arr.length, arr)
+                let order = randArr([1, 2, 3, 4, 5, 6, 7, 8, 9])
+                for (let i = 0; i < arr.length; i++) {
+                    order.splice(order.indexOf(arr[i]), 1)
+                }
+                //console.log(order)
+                for (let i = 0; i < order.length; i++) {
+                    sudoku[row - 1][arr.length] = order[i]
+                    //console.log(row, arr.length, order[i])
+
+                    if (verify(row, arr.length + 1)) {
+                        //sudoku[row - 1][arr.length] = 0
+                        let newArr = arr
+                        newArr.push(order[i])
+                        if (newArr.length < 9) {
+                            let result = generateRow(row, newArr)
+                            if (result) {
+                                sudoku[row - 1][arr.length] = 0
+                                result.unshift(order[i])
+                                return result
+                            }
+                            //console.log('false')
+                            sudoku[row - 1][arr.length] = 0
+
+                        } else {
+                            sudoku[row - 1][arr.length] = 0
+                            return [order[i]]
+                        }
+                    } else { sudoku[row - 1][arr.length] = 0 }
+                }
+
+                //console.log('ah')
+                return false
+            /*} else {
+                let num = original[row - 1][arr.length]
+                let newArr = arr
+                newArr.push(original[row - 1][arr.length])
+                console.log(newArr)
+                if (newArr.length < 9) {
+                    let result = generateRow(row, newArr)
+                    console.log(result)
+                    if (result) {
+                        //sudoku[row - 1][arr.length] = 0
+                        result.unshift(num)
+                        return result
+                    }
+                    //console.log('false')
+                    //sudoku[row - 1][arr.length] = 0
+
+                } else {
+                    //sudoku[row - 1][arr.length] = 0
+                    return [num]
+                }
+
+                return false;
+            }*/
+
+        }
+
+        //This function checks if a certain number in the grid can be removed while keeping the sudoku possible
+        const removeOne = (y, x) => {
+            const num = sudoku[y][x];
+            let zeros1 = []
+            let zeros2 = []
+            let zeros3 = []
+            let nums1 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            let nums2 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            let nums3 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+            nums1.splice(nums1.indexOf(num), 1)
+            nums2.splice(nums2.indexOf(num), 1)
+            nums3.splice(nums3.indexOf(num), 1)
+
+
+            //Check for the square
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (num !== sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j]) {
+                        //console.log(sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j])
+                        if (sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j]) {
+                            //nums1.push(sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j])
+                            nums1.splice(nums1.indexOf(sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j]), 1)
+
+                        } else zeros1.push([Math.floor(y / 3) * 3 + i, Math.floor(x / 3) * 3 + j])
+                    }
+                }
+            }
+            //console.log('Zeros and nums: ', zeros1, nums1)
+            let tot = 0;
+
+            for (let i = 0; i < zeros1.length; i++) {
+                //console.log(zeros1[i], sudoku[0], sudoku[1], sudoku[2], sudoku[3], sudoku[4], sudoku[5], sudoku[6], sudoku[7], sudoku[8])
+                sudoku[zeros1[i][0]][zeros1[i][1]] = num
+                sudoku[y][x] = 0
+                if (!verify(zeros1[i][0] + 1, zeros1[i][1] + 1)) {
+                    tot++
+                }
+                sudoku[zeros1[i][0]][zeros1[i][1]] = 0
+                sudoku[y][x] = num
+
+            }
+            //console.log('tot is ' + tot)
+            if (tot === zeros1.length) {
+                //console.log('zeros')
+                return true;
+            }
+            tot = 0;
+            for (let i = 0; i < nums1.length; i++) {
+                sudoku[y][x] = nums1[i]
+                if (!verify(y + 1, x + 1)) {
+                    tot++
+                }
+                sudoku[y][x] = num
+            }
+            if (tot === nums1.length) {
+                //console.log('nums')
+                return true;
+            }
+            //console.log('tot is ' + tot)
+
+
+            //check for horizontal
+
+            for (let i = 0; i < 9; i++) {
+
+                if (num !== sudoku[y][i]) {
+                    //console.log(sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j])
+                    if (sudoku[y][i]) {
+                        //nums2.push(sudoku[y][i])
+                        nums2.splice(nums2.indexOf(sudoku[y][i]), 1)
+                    } else zeros2.push([y, i])
+                }
+
+            }
+
+            //console.log('Zeros and nums: ', zeros2, nums2)
+            tot = 0;
+            for (let i = 0; i < zeros2.length; i++) {
+                //console.log(zeros2[i], sudoku[0], sudoku[1], sudoku[2], sudoku[3], sudoku[4], sudoku[5], sudoku[6], sudoku[7], sudoku[8])
+                sudoku[zeros2[i][0]][zeros2[i][1]] = num
+                sudoku[y][x] = 0
+                if (!verify(zeros2[i][0] + 1, zeros2[i][1] + 1)) {
+                    tot++
+                }
+                sudoku[zeros2[i][0]][zeros2[i][1]] = 0
+                sudoku[y][x] = num
+
+            }
+
+
+            //console.log('tot is ' + tot)
+            if (tot === zeros2.length) {
+                //console.log('zeros hor')
+                return true;
+            }
+            tot = 0;
+            for (let i = 0; i < nums2.length; i++) {
+                sudoku[y][x] = nums2[i]
+                if (!verify(y + 1, x + 1)) {
+                    tot++
+                }
+                sudoku[y][x] = num
+            }
+            if (tot === nums2.length) {
+                //console.log('nums hor')
+                return true;
+            }
+            //console.log('tot is ' + tot)
+
+            //check for vertical
+
+            for (let i = 0; i < 9; i++) {
+
+                if (num !== sudoku[i][x]) {
+                    //console.log(sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j])
+                    if (sudoku[i][x]) {
+                        //nums3.push(sudoku[i][x])
+                        nums3.splice(nums3.indexOf(sudoku[i][x]), 1)
+                    } else zeros3.push([i, x])
+                }
+
+            }
+
+            //console.log('Zeros and nums: ', zeros3, nums3)
+            tot = 0;
+            for (let i = 0; i < zeros3.length; i++) {
+                //console.log(zeros3[i], sudoku[0], sudoku[1], sudoku[2], sudoku[3], sudoku[4], sudoku[5], sudoku[6], sudoku[7], sudoku[8])
+                sudoku[zeros3[i][0]][zeros3[i][1]] = num
+                sudoku[y][x] = 0
+                if (!verify(zeros3[i][0] + 1, zeros3[i][1] + 1)) {
+                    tot++
+                }
+                sudoku[zeros3[i][0]][zeros3[i][1]] = 0
+                sudoku[y][x] = num
+
+            }
+
+
+            //console.log('tot is ' + tot)
+            if (tot === zeros3.length) {
+                //console.log('zeros vert')
+                return true;
+            }
+            tot = 0;
+            for (let i = 0; i < nums3.length; i++) {
+                sudoku[y][x] = nums3[i]
+                if (!verify(y + 1, x + 1)) {
+                    tot++
+                }
+                sudoku[y][x] = num
+            }
+            if (tot === nums3.length) {
+                //console.log('nums vert')
+                return true;
+            }
+            //console.log('tot is ' + tot)
+
+
+            return false
+        }
+
+        //This function changes the colors of the numbers that are identical to the selected one
+        const colorNumbers = num => {
+            
+            for (let i = 0; i < sudoku.length; i++) {
+                for (let j = 0; j < sudoku[i].length; j++) {
+                    if (sudoku[i][j] === num) {
+                        colors[2].push(i * 9 + j)
+                    }
+
+                }
+            }
+        }
+
+        //Main code
+
+
+        let count = 50
+
+        //This here generates a complete sudoku grid
+        let sudoku = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+        const original = sudoku
+        let difficulty = 50
+        let complete = false
+        while (!complete) {
+            sudoku = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0, 0]]
+            complete = true
+            for (let i = 1; i <= 9; i++) {
+                let save = sudoku[i - 1]
+                let g;
+                for (let j = 0; !g && j < 100; j++) {
+                    g = generateRow(i, [])
+                    sudoku[i - 1] = save
+                }
+                if (!g) {
+                    complete = false
+                }
+                sudoku[i - 1] = g
+            }
+
+        }
+
+
+
+        //The way i create the sudoku grid is by creating a complete sudoku grid and then removing random numbers one by one until i can't remove any more of them for the sudoku to be possible
+        //This code creates an array that defines the order that the numbers will be removed. This array is made so that for example we remove all the 8s, then all the 5s, etc. I do that because by experiencing, i found out this makes a harder puzzle for the user
+        let it = randArr([1, 2, 3, 4, 5, 6, 7, 8, 9])
+        let ord = []
+        // console.log(it)
+        for (let i = 0; i < it.length; i++) {
+            let ord1 = []
+            for (let j = 0; j < sudoku.length; j++) {
+                for (let k = 0; k < sudoku[i].length; k++) {
+                    if (sudoku[j][k] === it[i]) {
+                        ord1.push(j * 9 + k)
+                    }
+                }
+            }
+            ord1 = randArr(ord1)
+            for (let j = 0; j < ord1.length; j++) {
+                ord.push(ord1[j])
+            }
+
+        }
+        //console.log(sudoku[0], sudoku[1], sudoku[2], sudoku[3], sudoku[4], sudoku[5], sudoku[6], sudoku[7], sudoku[8])
+        //console.log('ord is ', ord)
+
+
+        //This loop removes numbers from the grid until we get a sudoku with as little numbers as possible
+        for (let i = 0; i < ord.length - 50 + difficulty; i++) {
+            const x = ord[i] % 9
+            const y = (ord[i] - x) / 9
+            //console.log(y, x)
+            if (removeOne(y, x)) {
+                sudoku[y][x] = 0;
+            }
+        }
+        
+
+        //This loop puts the sudoku to the screen while sorting the empty tiles from the filled ones
+        let zero = []
+        let number = []
+        for (let i = 0; i < sudoku.length; i++) {
+            for (let j = 0; j < sudoku[i].length; j++) {
+                if (sudoku[i][j]) {
+                    sudokuRef[i * 9 + j].innerHTML = sudoku[i][j]
+                    number.push(i * 9 + j)
+                //console.log(sudokuRef[i * 9 + j])
+                } else zero.push(i * 9 + j)
+
+
+            }
+        }
+
+        let clicked;
+        let coords;
+        let mouseon;
+        let colors = [[], [], [], []]
+
+        //This variable defines the different colors used in the code
+        //[0]: All the tiles affected by the selected one  [1]: Tile touched by the mouse  [2]: All tiles identical to the one selected  [3]: Clicked tile
+        const colorRef = ['#e6e6e6', '#e6faff', '#ccf5ff', '#99ebff']
+
+        //This loop handles all the events that every tile is affected by individually
+        for (let i = 0; i < 81; i++) {
+            let y = (i - (i % 9)) / 9;
+            let x = i % 9
+            //This changes the color of the tile when the mouse touches it
+            sudokuRef[i].addEventListener('mouseover', e => {
+                e.target.style.cursor = 'pointer'
+
+                if (clicked !== i) {
+                    //e.target.style.backgroundColor = '#ccebff'
+                    colors[1].push(i)
+                    
+                }
+                
+            })
+            //This changes the tile back to white when the mouse leaves
+            sudokuRef[i].addEventListener('mouseleave', e => {
+                colors[1].splice(colors[1].indexOf(i), 1)
+                e.target.style.cursor = 'default'
+            })
+            //This changes the tile's color when clicked
+            sudokuRef[i].addEventListener('click', e => {
+                if (clicked + 1) {
+                    colors[3].splice(colors.indexOf(clicked), 1)
+                }
+                //e.target.style.backgroundColor = '#99d6ff'
+                clicked = i
+                colors[3].push(i)
+                coords = [y, x, getSquare(y + 1, x + 1)]
+                colors[2] = [];
+                if (number.includes(i)) {
+                    colorNumbers(sudoku[y][x])
+                }
+                    
+                //console.log(coords[2])
+            })
+        }
+
+        //This event changes the color of all the tiles affected by the one selected (Horizontal line, vertical line and 3x3 square)
+        document.onclick = e => {
+            colors[0] = []
+            for (let i = 0; i < sudoku.length; i++) {
+                for (let j = 0; j < sudoku[i].length; j++) {
+                    if ((i === coords[0] || j === coords[1] || getSquare(i + 1, j + 1) === coords[2])) {
+                        colors[0].push(i * 9 + j)
+                        
+                    } 
+
+                }
+            }
+        }
+
+        //This function handles all the color changes at every frame
+        const colorManagement = e => {
+            //console.log(colors)
+            for (let i = 0; i < sudoku.length; i++) {
+                for (let j = 0; j < sudoku[i].length; j++) {
+                    sudokuRef[i * 9 + j].style.backgroundColor = '#ffffff'
+
+                }
+            }
+            for (let i = 0; i < colors.length; i++) {
+                for (let j = 0; j < colors[i].length; j++) {
+                    sudokuRef[colors[i][j]].style.backgroundColor = colorRef[i]
+                }
+            }
+            window.requestAnimationFrame(colorManagement)
+        }
+        colorManagement();
+        console.log(inputs[0].style.backgroundColor.split(','))
+
+        /*for (let i = 0; i < inputs.length; i++) {
+
+        }*/
+
+
+
+    </script>
+
+</body>
+</html>
