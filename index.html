@@ -7,7 +7,7 @@
     <style>
 
 
-       * {
+        * {
             font-family: "Comic Sans MS";
             background-color: #ccf5ff;
         }
@@ -365,25 +365,22 @@
 
         //Getting all the necessary html elements
         const newGame = document.getElementById('newGame')
-        const notes = (document.getElementById('notes'))
-        const cancel = (document.getElementById('cancel'))
-        const erase = (document.getElementById('erase'))
+        const notes = document.getElementById('notes')
+        const cancel = document.getElementById('cancel')
+        const erase = document.getElementById('erase')
 
 
 
         //This code gets all the html elements that the numeric buttons on the right, and stores them in an array
         let inputs = []
-        for (let i = 1; i <= 9; i++) {
+        for (let i = 1; i <= 9; i++) 
             inputs.push(document.getElementById('n' + String(i)))
 
-        }
 
         //This code gets all the html elements that represent the tiles in the grid, and then puts them in the array sudokuRef
         let sudokuRef = []
-        for (let i = 1; i <= 81; i++) {
+        for (let i = 1; i <= 81; i++) 
             sudokuRef.push(document.getElementById(String(i)))
-
-        }
 
 
         //This function returns the 3x3 square of a certain tile, considering that the first 3x3 square in the upper left corner is 1 and the one in the lower right corner is 9
@@ -394,34 +391,19 @@
         //this function verifies that a certain square in the grid is possible according to the regular sudoku rules
         const verify = (y, x) => {
             const num = sudoku[y - 1][x - 1]
-            for (let i = 0; i < sudoku[y - 1].length; i++) {
-                //console.log(num, sudoku[y - 1][i])
-                //console.log(i)
-                if (sudoku[y - 1][i] === num && i !== x - 1) {
+            for (let i = 0; i < sudoku[y - 1].length; i++) 
+                if (sudoku[y - 1][i] === num && i !== x - 1) 
                     return false;
-                }
-            }
 
-            for (let i = 0; i < sudoku.length; i++) {
-                
-                if (sudoku[i][x - 1] === num && i !== y - 1) {
-                    
-                    
+            for (let i = 0; i < sudoku.length; i++)                 
+                if (sudoku[i][x - 1] === num && i !== y - 1) 
                     return false;
-                }
-            }
 
-            for (let i = 1; i <= sudoku.length; i++) {
-                for (let j = 1; j <= sudoku[i - 1].length; j++) {
-                    //console.log(getSquare(y, x), getSquare(i + 1, j + 1))
-                    if (getSquare(y, x) === getSquare(i, j) && num === sudoku[i - 1][j - 1] && i !== y && j !== x) {
-                        //console.log(num, y, x, i, j)
+
+            for (let i = 1; i <= sudoku.length; i++) 
+                for (let j = 1; j <= sudoku[i - 1].length; j++) 
+                    if (getSquare(y, x) === getSquare(i, j) && num === sudoku[i - 1][j - 1] && i !== y && j !== x) 
                         return false;
-                    }
-
-
-                }
-            }
 
 
             return true;
@@ -430,30 +412,24 @@
         //This function returns an array with all its elements in a random order
         const randArr = arr => {
             let arr2 = []
-            while (arr.length > 0) {
-                //console.log(arr)
+            while (arr.length > 0) 
                 arr2.push(Number(arr.splice(Math.floor(Math.random() * arr.length), 1).join('')))
-            }
+
             return arr2
         }
 
 
         //This function generates one full row of the grid while making sure that sudoku rules are being respected
         const generateRow = (row, arr) => {
-            //console.log(row - 1, arr.length, original[row - 1][arr.length], 'BBBBBBBBBBBB', original[0], original[1], original[2], original[3], original[4], original[5], original[6], original[7], original[8])
-            //if (original[row - 1][arr.length] === 0) {
-                //console.log(arr.length, arr)
+
                 let order = randArr([1, 2, 3, 4, 5, 6, 7, 8, 9])
-                for (let i = 0; i < arr.length; i++) {
+                for (let i = 0; i < arr.length; i++) 
                     order.splice(order.indexOf(arr[i]), 1)
-                }
-                //console.log(order)
+                
                 for (let i = 0; i < order.length; i++) {
                     sudoku[row - 1][arr.length] = order[i]
-                    //console.log(row, arr.length, order[i])
 
                     if (verify(row, arr.length + 1)) {
-                        //sudoku[row - 1][arr.length] = 0
                         let newArr = arr
                         newArr.push(order[i])
                         if (newArr.length < 9) {
@@ -463,41 +439,18 @@
                                 result.unshift(order[i])
                                 return result
                             }
-                            //console.log('false')
+                            
                             sudoku[row - 1][arr.length] = 0
 
                         } else {
                             sudoku[row - 1][arr.length] = 0
                             return [order[i]]
                         }
-                    } else { sudoku[row - 1][arr.length] = 0 }
+                    } else sudoku[row - 1][arr.length] = 0 
                 }
 
-                //console.log('ah')
+                
                 return false
-            /*} else {
-                let num = original[row - 1][arr.length]
-                let newArr = arr
-                newArr.push(original[row - 1][arr.length])
-                console.log(newArr)
-                if (newArr.length < 9) {
-                    let result = generateRow(row, newArr)
-                    console.log(result)
-                    if (result) {
-                        //sudoku[row - 1][arr.length] = 0
-                        result.unshift(num)
-                        return result
-                    }
-                    //console.log('false')
-                    //sudoku[row - 1][arr.length] = 0
-
-                } else {
-                    //sudoku[row - 1][arr.length] = 0
-                    return [num]
-                }
-
-                return false;
-            }*/
 
         }
 
@@ -516,148 +469,106 @@
 
 
             //Check for the square
-            for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 3; j++) {
-                    if (num !== sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j]) {
-                        //console.log(sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j])
-                        if (sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j]) {
-                            //nums1.push(sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j])
+            for (let i = 0; i < 3; i++) 
+                for (let j = 0; j < 3; j++) 
+                    if (num !== sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j]) 
+                        if (sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j]) 
                             nums1.splice(nums1.indexOf(sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j]), 1)
-
-                        } else zeros1.push([Math.floor(y / 3) * 3 + i, Math.floor(x / 3) * 3 + j])
-                    }
-                }
-            }
-            //console.log('Zeros and nums: ', zeros1, nums1)
+                        else zeros1.push([Math.floor(y / 3) * 3 + i, Math.floor(x / 3) * 3 + j])
+                    
             let tot = 0;
 
             for (let i = 0; i < zeros1.length; i++) {
-                //console.log(zeros1[i], sudoku[0], sudoku[1], sudoku[2], sudoku[3], sudoku[4], sudoku[5], sudoku[6], sudoku[7], sudoku[8])
+                //console.log(sudoku[0], sudoku[1], sudoku[2], sudoku[3], sudoku[4], sudoku[5], sudoku[6], sudoku[7], sudoku[8])
                 sudoku[zeros1[i][0]][zeros1[i][1]] = num
                 sudoku[y][x] = 0
-                if (!verify(zeros1[i][0] + 1, zeros1[i][1] + 1)) {
+                if (!verify(zeros1[i][0] + 1, zeros1[i][1] + 1)) 
                     tot++
-                }
+                
                 sudoku[zeros1[i][0]][zeros1[i][1]] = 0
                 sudoku[y][x] = num
 
             }
-            //console.log('tot is ' + tot)
-            if (tot === zeros1.length) {
-                //console.log('zeros')
+
+            if (tot === zeros1.length) 
                 return true;
-            }
+            
             tot = 0;
             for (let i = 0; i < nums1.length; i++) {
                 sudoku[y][x] = nums1[i]
-                if (!verify(y + 1, x + 1)) {
+                if (!verify(y + 1, x + 1)) 
                     tot++
-                }
                 sudoku[y][x] = num
             }
-            if (tot === nums1.length) {
-                //console.log('nums')
+            if (tot === nums1.length) 
                 return true;
-            }
-            //console.log('tot is ' + tot)
 
 
             //check for horizontal
 
-            for (let i = 0; i < 9; i++) {
-
-                if (num !== sudoku[y][i]) {
-                    //console.log(sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j])
-                    if (sudoku[y][i]) {
-                        //nums2.push(sudoku[y][i])
+            for (let i = 0; i < 9; i++) 
+                if (num !== sudoku[y][i]) 
+                    if (sudoku[y][i]) 
                         nums2.splice(nums2.indexOf(sudoku[y][i]), 1)
-                    } else zeros2.push([y, i])
-                }
+                    else zeros2.push([y, i])
 
-            }
-
-            //console.log('Zeros and nums: ', zeros2, nums2)
             tot = 0;
             for (let i = 0; i < zeros2.length; i++) {
-                //console.log(zeros2[i], sudoku[0], sudoku[1], sudoku[2], sudoku[3], sudoku[4], sudoku[5], sudoku[6], sudoku[7], sudoku[8])
                 sudoku[zeros2[i][0]][zeros2[i][1]] = num
                 sudoku[y][x] = 0
-                if (!verify(zeros2[i][0] + 1, zeros2[i][1] + 1)) {
+                if (!verify(zeros2[i][0] + 1, zeros2[i][1] + 1)) 
                     tot++
-                }
                 sudoku[zeros2[i][0]][zeros2[i][1]] = 0
                 sudoku[y][x] = num
 
             }
 
 
-            //console.log('tot is ' + tot)
-            if (tot === zeros2.length) {
-                //console.log('zeros hor')
+            if (tot === zeros2.length) 
                 return true;
-            }
             tot = 0;
             for (let i = 0; i < nums2.length; i++) {
                 sudoku[y][x] = nums2[i]
-                if (!verify(y + 1, x + 1)) {
+                if (!verify(y + 1, x + 1)) 
                     tot++
-                }
                 sudoku[y][x] = num
             }
-            if (tot === nums2.length) {
-                //console.log('nums hor')
+            if (tot === nums2.length) 
                 return true;
-            }
-            //console.log('tot is ' + tot)
 
             //check for vertical
 
-            for (let i = 0; i < 9; i++) {
-
-                if (num !== sudoku[i][x]) {
-                    //console.log(sudoku[Math.floor(y / 3) * 3 + i][Math.floor(x / 3) * 3 + j])
-                    if (sudoku[i][x]) {
-                        //nums3.push(sudoku[i][x])
+            for (let i = 0; i < 9; i++) 
+                if (num !== sudoku[i][x]) 
+                    if (sudoku[i][x]) 
                         nums3.splice(nums3.indexOf(sudoku[i][x]), 1)
-                    } else zeros3.push([i, x])
-                }
-
-            }
-
-            //console.log('Zeros and nums: ', zeros3, nums3)
+                    else zeros3.push([i, x])
+                
             tot = 0;
             for (let i = 0; i < zeros3.length; i++) {
-                //console.log(zeros3[i], sudoku[0], sudoku[1], sudoku[2], sudoku[3], sudoku[4], sudoku[5], sudoku[6], sudoku[7], sudoku[8])
                 sudoku[zeros3[i][0]][zeros3[i][1]] = num
                 sudoku[y][x] = 0
-                if (!verify(zeros3[i][0] + 1, zeros3[i][1] + 1)) {
+                if (!verify(zeros3[i][0] + 1, zeros3[i][1] + 1)) 
                     tot++
-                }
                 sudoku[zeros3[i][0]][zeros3[i][1]] = 0
                 sudoku[y][x] = num
 
             }
 
 
-            //console.log('tot is ' + tot)
-            if (tot === zeros3.length) {
-                //console.log('zeros vert')
+
+            if (tot === zeros3.length) 
                 return true;
-            }
+            
             tot = 0;
             for (let i = 0; i < nums3.length; i++) {
                 sudoku[y][x] = nums3[i]
-                if (!verify(y + 1, x + 1)) {
+                if (!verify(y + 1, x + 1)) 
                     tot++
-                }
                 sudoku[y][x] = num
             }
-            if (tot === nums3.length) {
-                //console.log('nums vert')
+            if (tot === nums3.length) 
                 return true;
-            }
-            //console.log('tot is ' + tot)
-
 
             return false
         }
@@ -675,35 +586,18 @@
             }
         }
 
-        //Main code
 
+        //Main code
 
         let count = 50
 
         //This here generates a complete sudoku grid
-        let sudoku = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0]]
-
-        const original = sudoku
+        let sudoku;
+        const original = Array(9).fill(Array(9).fill(0))
         let difficulty = 50
         let complete = false
         while (!complete) {
-            sudoku = [[0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0, 0]]
+            sudoku = JSON.parse(JSON.stringify(original));
 
             complete = true
             for (let i = 1; i <= 9; i++) {
@@ -713,9 +607,8 @@
                     g = generateRow(i, [])
                     sudoku[i - 1] = save
                 }
-                if (!g) {
+                if (!g) 
                     complete = false
-                }
                 sudoku[i - 1] = g
             }
 
@@ -729,34 +622,26 @@
         //This code creates an array that defines the order that the numbers will be removed. This array is made so that for example we remove all the 8s, then all the 5s, etc. I do that because by experiencing, i found out this makes a harder puzzle for the user
         let it = randArr([1, 2, 3, 4, 5, 6, 7, 8, 9])
         let ord = []
-        // console.log(it)
         for (let i = 0; i < it.length; i++) {
             let ord1 = []
-            for (let j = 0; j < sudoku.length; j++) {
-                for (let k = 0; k < sudoku[i].length; k++) {
-                    if (sudoku[j][k] === it[i]) {
+            for (let j = 0; j < sudoku.length; j++) 
+                for (let k = 0; k < sudoku[i].length; k++) 
+                    if (sudoku[j][k] === it[i]) 
                         ord1.push(j * 9 + k)
-                    }
-                }
-            }
+
             ord1 = randArr(ord1)
-            for (let j = 0; j < ord1.length; j++) {
+            for (let j = 0; j < ord1.length; j++) 
                 ord.push(ord1[j])
-            }
 
         }
-        //console.log(sudoku[0], sudoku[1], sudoku[2], sudoku[3], sudoku[4], sudoku[5], sudoku[6], sudoku[7], sudoku[8])
-        //console.log('ord is ', ord)
 
 
         //This loop removes numbers from the grid until we get a sudoku with as little numbers as possible
         for (let i = 0; i < ord.length - 50 + difficulty; i++) {
             const x = ord[i] % 9
             const y = (ord[i] - x) / 9
-            //console.log(y, x)
-            if (removeOne(y, x)) {
-                sudoku[y][x] = 0;
-            }
+            if (removeOne(y, x)) 
+                sudoku[y][x] = 0
         }
         
 
@@ -773,8 +658,6 @@
                     sudokuRef[i * 9 + j].style.color = '#00b8e6'
                     zero.push(i * 9 + j)
                 }
-
-
             }
         }
 
@@ -796,7 +679,6 @@
                 e.target.style.cursor = 'pointer'
 
                 if (clicked !== i) {
-                    //e.target.style.backgroundColor = '#ccebff'
                     colors[1].push(i)
                     
                 }
@@ -809,80 +691,48 @@
             })
             //This changes the tile's color when clicked
             sudokuRef[i].addEventListener('click', e => {
-                if (clicked + 1) {
-                   
-                }
-                //e.target.style.backgroundColor = '#99d6ff'
                 clicked = i
                 colors[4] = [i]
                 coords = [y, x, getSquare(y + 1, x + 1)]
                 colors[3] = [];
-                if (number.includes(i)) {
+                if (number.includes(i)) 
                     colorNumbers(sudoku[y][x])
-                }
-                    
-                //console.log(coords[2])
+
             })
         }
 
         //This event changes the color of all the tiles affected by the one selected (Horizontal line, vertical line and 3x3 square)
         document.onclick = e => {
             colors[0] = []
-            for (let i = 0; i < sudoku.length; i++) {
-                for (let j = 0; j < sudoku[i].length; j++) {
-                    if ((i === coords[0] || j === coords[1] || getSquare(i + 1, j + 1) === coords[2])) {
+            for (let i = 0; i < sudoku.length; i++) 
+                for (let j = 0; j < sudoku[i].length; j++) 
+                    if ((i === coords[0] || j === coords[1] || getSquare(i + 1, j + 1) === coords[2])) 
                         colors[0].push(i * 9 + j)
-                        
-                    } 
-
-                }
-            }
+            
         }
 
         //This function handles all the color and tiles changes at every frame
         const management = e => {
-            //console.log(colors)
-            for (let i = 0; i < sudoku.length; i++) {
-                for (let j = 0; j < sudoku[i].length; j++) {
+            for (let i = 0; i < sudoku.length; i++) 
+                for (let j = 0; j < sudoku[i].length; j++) 
                     sudokuRef[i * 9 + j].style.backgroundColor = '#ffffff'
 
-                }
-            }
-            for (let i = 0; i < colors.length; i++) {
-                for (let j = 0; j < colors[i].length; j++) {
+            for (let i = 0; i < colors.length; i++) 
+                for (let j = 0; j < colors[i].length; j++) 
                     sudokuRef[colors[i][j]].style.backgroundColor = colorRef[i]
-                }
-            }
 
             for (let i = 0; i < sudoku.length; i++) {
                 for (let j = 0; j < sudoku[i].length; j++) {
-                    if (sudoku[i][j]) {
+                    if (sudoku[i][j]) 
                         sudokuRef[i * 9 + j].innerHTML = sudoku[i][j]
-                        //console.log(sudokuRef[i * 9 + j])
-                    } else {
+                    else
                         sudokuRef[i * 9 + j].innerHTML = sudoku[i][j] = ''
-                        
-                    }
-                    if (zero.includes(i * 9 + j) && sudoku[i][j]) {
-                        if (sudoku[i][j] === ans[i][j]) {
-                            //console.log(i, j)
-                            sudokuRef[i * 9 + j].style.color = '#00b8e6'
-                            
-                        } else {
-                            sudokuRef[i * 9 + j].style.color = '#ff1a1a'
-                            //colors[2].push(i * 9 + j)
-                            
-                            
-                        }
-                    }
-                    /*if (colors[2].includes(i * 9 + j)) {
-                        if ((sudoku[i][j] === ans[i][j] || sudoku[i][j] === 0)) {
-                            colors[2].splice(colors[2].indexOf(i * 9 + j), 1)
-                        }
-                        
-                    }*/
-                    
 
+                    if (zero.includes(i * 9 + j) && sudoku[i][j]) 
+                        if (sudoku[i][j] === ans[i][j]) 
+                            sudokuRef[i * 9 + j].style.color = '#00b8e6'                            
+                         else 
+                            sudokuRef[i * 9 + j].style.color = '#ff1a1a'
 
                 }
             }
@@ -894,22 +744,16 @@
 
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].addEventListener('click', e => {
-                console.log(ans[0], ans[1], ans[2], ans[3], ans[4], ans[5], ans[6], ans[7], ans[8])
-                //console.log(i, clicked, zero.includes(clicked))
-                if (clicked + 1) {
-                    if (zero.includes(clicked)) {
+                if (clicked + 1) 
+                    if (zero.includes(clicked)) 
                         sudoku[(clicked - (clicked % 9)) / 9][clicked % 9] = i + 1
-                    }
-                }
             })
         }
         erase.onclick = e => {
             console.log('AAAA', clicked, zero.includes(clicked), (clicked - (clicked % 9)) / 9, clicked % 9)
-            if (clicked + 1) {
-                if (zero.includes(clicked)) {
+            if (clicked + 1) 
+                if (zero.includes(clicked)) 
                     sudoku[(clicked - (clicked % 9)) / 9][clicked % 9] = 0;
-                }
-            }
         }
 
 
